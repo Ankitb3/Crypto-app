@@ -77,6 +77,7 @@ export function VelocityScroll({
     const directionFactor = React.useRef<number>(1);
     useAnimationFrame((t, delta) => {
       let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
+console.log(t);
 
       if (velocityFactor.get() < 0) {
         directionFactor.current = -1;

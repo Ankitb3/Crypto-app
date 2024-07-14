@@ -3,26 +3,35 @@ import { useEffect, useState } from "react";
 import { HistoricalChart } from "../config/api";
 
 interface CoinGraphProps {
-  coin: string;
+  coin: unknown;
 }
 type HistoricData ={
- prices:string
+ prices:string[]
 }
 
 const CoinGraph: React.FC<CoinGraphProps> = ({ coin }) => {
-  const [historicData, setHistoricData] = useState<HistoricData>(null); // Adjust 'any' to match your data structure
-  const [days, setDays] = useState<number>(1);
-console.log(historicData?.prices,"data");
+  const [historicData, setHistoricData] = useState<HistoricData>({
+    prices: [] 
+  });
+  console.log(historicData?.prices,"data");
 
   useEffect(() => {
-    axios.get(HistoricalChart("bitcoin",days,"inr")).then((res)=>setHistoricData(res.data))
-  }, [coin, days]);
+    axios.get(HistoricalChart("bitcoin",2,"inr")).then((res)=>setHistoricData(res.data))
+  }, [coin]);
 
   return (
     <div className="bg-white">
-      CoinGraph Component
+      {historicData ? (
+        <div>
+          <p>Historical Data Loaded</p>
+          {/* Render your historical data here */}
+        </div>
+      ) : (
+        <p>Loading historical data...</p>
+      )}
     </div>
   );
+  
 };
 
 export default CoinGraph;
