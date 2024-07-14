@@ -45,13 +45,13 @@ export default function OrbitingCircles({
             "--delay": -delay,
           } as React.CSSProperties
         }
-        className={cn(
-          "absolute flex size-full transform-gpu animate-orbit items-center justify-center rounded-full border bg-black/10",
-          `[animation-delay:calc(var(--delay)*1000ms)]`,
-          reverse ? "[animation-direction:reverse]" : "",
-          className
-        )}
-        
+       className={cn(
+  "absolute flex size-full transform-gpu animate-orbit items-center justify-center rounded-full border bg-black/10",
+  `[animation-delay:calc(var(--delay)*1000ms)]`,
+  reverse ? "[animation-direction:reverse]" : "",
+  className
+)}
+
       >
         {children}
       </div>
