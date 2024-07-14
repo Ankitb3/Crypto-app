@@ -1,11 +1,11 @@
-
 import OrbitingCircles from "./magicui/orbiting-circles";
+import TextReveal from "./TypingAnimation";
 
 const OrbitCircle=()=> {
   return (
-    <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
-      <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-black">
-        CRYPTO
+    <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background md:shadow-xl">
+      <span>
+        <TextReveal text="Crypto World"/>
       </span>
 
       <OrbitingCircles
@@ -73,8 +73,8 @@ const OrbitCircle=()=> {
         <Icons.poly />
       </OrbitingCircles>  <OrbitingCircles
         className="size-[50px] border-none bg-transparent"
-        radius={190}
-        duration={20}
+        radius={140}
+        duration={10}
         delay={10}
       >
         <Icons.inj />
@@ -106,11 +106,19 @@ const OrbitCircle=()=> {
         <Icons.poly />
       </OrbitingCircles>  <OrbitingCircles
         className="size-[50px] border-none bg-transparent"
-        radius={190}
+        radius={70}
         duration={20}
         delay={10}
       >
         <Icons.inj />
+      </OrbitingCircles>
+      <OrbitingCircles
+        className="size-[50px] border-none bg-transparent"
+        radius={1300}
+        duration={10}
+        delay={10}
+      >
+        <Icons.kucoin />
       </OrbitingCircles>
     </div>
   );
@@ -154,6 +162,10 @@ const Icons = {
     ),
     inj: () => (
         <img src={"https://cdn.iconscout.com/icon/premium/png-512-thumb/injective-protocol-inj-7151435-5795672.png?f=webp&w=256"}/>
+
+    ),
+    kucoin: () => (
+        <img src={"https://cdn.iconscout.com/icon/premium/png-512-thumb/kucoin-token-kcs-7151635-5795503.png?f=webp&w=256"}/>
 
     ),
 }

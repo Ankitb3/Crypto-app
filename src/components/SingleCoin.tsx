@@ -4,21 +4,20 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ReactHtmlParser from "react-html-parser"
 import Loader from "./Loader";
+import CoinGraph from "./CoinGraph";
 interface CoinData {
     image: {
         large: string;
     };
     id: string;
     description: {
-        en: string | unknown;
+        en: string;
     };
-    // Add more properties as needed based on your usage
 }
 const SingleCoin = () => {
     const {id} = useParams<{ id?: string }>();
    const [CoinData,setCoinData] = useState<CoinData | null>(null);
    const[loading,setLoading] = useState(false)
-   console.log(CoinData,"data");
    
     useEffect(()=>{
         setLoading(true)
@@ -41,9 +40,8 @@ const SingleCoin = () => {
                 <h2>Price:{CoinData.market_data.cureent_price.inr}</h2> */}
                 <h2>Total Supply:</h2>
                 <h2>Contract Address:</h2>
-
             </div>
-            <div>Chart</div>
+            <div><CoinGraph coin={CoinData}/></div>
         </div>
         }
        

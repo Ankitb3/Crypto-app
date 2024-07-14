@@ -1,41 +1,39 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { CoinList } from "../config/api";
+import { useNavigate } from "react-router-dom";
 interface Coin {
     name: string;
+    id:string;
     market_cap_rank: number;
     image: string;
     current_price: string;
     price_change_percentage_24h: number;
     symbol:string;
     market_cap:string;
-    // Add other properties as needed
 }
 const CoinsTable = () => {
-  // Dummy data for demonstration
   const[coinsData,setCoinData] = useState<Coin[]>([]);
   console.log(coinsData);
+  const navigate = useNavigate();
   
  useEffect(()=>{
     axios.get(CoinList('inr')).then(res=>setCoinData(res.data))
  },[])
 
-  const itemsPerPage = 10; // Number of items per page
+  const itemsPerPage = 10; 
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Logic to calculate pagination
   const lastIndex = currentPage * itemsPerPage;
   const firstIndex = lastIndex - itemsPerPage;
   const currentItems = coinsData.slice(firstIndex, lastIndex);
 
   const totalPages = Math.ceil(coinsData.length / itemsPerPage);
 
-  // Function to change page
   const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
 
   return (
     <div className="overflow-x-auto">
-        <h2  className="text-white font-semibold text-center text-2xl lg:text-4xl mt-10">CryptoCurrency Prices By <br/> There Market Cap</h2>
       <table className="min-w-full  shadow-md rounded my-6">
         <thead>
           <tr className=" uppercase text-sm leading-normal text-white bg-[#6d64ff] ">
@@ -47,7 +45,7 @@ const CoinsTable = () => {
         </thead>
         <tbody className="text-white text-sm font-light">
           {currentItems.map((coin) => (
-            <tr key={coin.name} className="border-b border-[#6d64ff] ">
+            <tr key={coin.name} className="border-b border-[#7570cc] hover:bg-gray-900 cursor-pointer " onClick={()=>navigate(`/coin/${coin.id}`)}>
               <td className="py-3 px-6 text-left whitespace-nowrap">
                 <div className="flex items-center gap-2 text-xl ">
                 <img src={coin.image}  className="h-[70px]"/>
@@ -60,7 +58,7 @@ const CoinsTable = () => {
              
               </td>
               <td className="py-3 px-6 text-left">₹{coin.current_price}</td>
-              <td className={`py-3 px-6 text-left font-semibold text-lg ${coin.price_change_percentage_24h > 0 ?"text-green-500" :"text-red-600"}`}> +{coin.price_change_percentage_24h}%</td>
+              <td className={`py-3 px-6 text-left font-semibold text-lg ${coin.price_change_percentage_24h > 0 ?"text-green-500" :"text-red-600"}`}>{`${coin.price_change_percentage_24h > 0 ? "+":""}${coin.price_change_percentage_24h}`}%</td>
               <td className="py-3 px-6 text-left">{coin.market_cap}</td>
             </tr>
           ))}
@@ -82,7 +80,7 @@ const CoinsTable = () => {
               <button
                 key={index}
                 onClick={() => paginate(index + 1)}
-                className={`relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium text-white hover:bg-gray-50 ${currentPage === index + 1 ? 'bg-[#6d64ff]  text-white' : 'hover:bg-[#6d64ff]  hover:text-white'}`}
+                className={`relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium text-white hover:bg-gray-50 hover:text-black ${currentPage === index + 1 ? 'bg-[#6d64ff]  text-white' : 'hover:bg-[#6d64ff]  hover:text-white'}`}
               >
                 {index + 1}
               </button>

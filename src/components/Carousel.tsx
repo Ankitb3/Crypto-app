@@ -5,14 +5,14 @@ import { TrendingCoins } from "../config/api";
 import axios from "axios";
 import { SparkAreaChart } from "@tremor/react";
 interface Coin {
+    id:string;
     name: string;
     market_cap_rank: number;
     image: string;
     current_price: string;
     price_change_percentage_24h: string;
-    // Add other properties as needed
 }
-const Carosuel = () => {
+const Carousel = () => {
     const [data,setData] = useState<Coin[]>([]);
     console.log(data,"data");
     
@@ -35,19 +35,18 @@ const Carosuel = () => {
         },
     ]      
     const items = data.map((coin, index) => (
-        <Link to={`/details/${coin.name}`} key={index} className="mt-20" >
+        <Link to={`/coin/${coin.id}`} key={index} className="mt-20" >
             <div className="bg-white min-h-[10em] m-2 flex flex-col justify-center items-center p-2 rounded-md hover:-translate-y-6 transition ease-in-out delay-150  hover:z-[-1]  hover:scale-10  duration-300">
                 <div className=" w-full flex justify-end"> <div className="w-fit bg-black rounded">
                 <p className="text-white font-semibold p-2">Rank {coin.market_cap_rank === 1 ? `${coin.market_cap_rank}🌟` : coin.market_cap_rank}</p>
             </div></div>
-           
             <img src={coin.image}  className="h-[100px]"/>
             <p>{coin.name}</p>
             <p>{coin.current_price}₹</p>
             <SparkAreaChart
         data={chartdata}
         categories={['Performance']}
-        index={coin.current_price.toFixed(2)}
+        index={coin.current_price}
         colors={['green']}
         className="h-8 w-20 sm:h-10 sm:w-36"
       />
@@ -84,7 +83,7 @@ const Carosuel = () => {
                 mouseTracking
                 infinite
                 autoPlay
-                autoPlayInterval={1000} // Adjust interval as needed (in milliseconds)
+                autoPlayInterval={1000} 
                 animationDuration={1500}
                 disableDotsControls
                 responsive={responsive}
@@ -97,4 +96,4 @@ const Carosuel = () => {
     );
 };
 
-export default Carosuel;
+export default Carousel;

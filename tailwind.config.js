@@ -12,6 +12,7 @@ export default {
     extend: {
       animation: {
         orbit: "orbit calc(var(--duration)*1s) linear infinite",
+        meteor: "meteor 5s linear infinite"
       },
       keyframes: {
         orbit: {
@@ -22,6 +23,14 @@ export default {
           "100%": {
             transform:
               "rotate(360deg) translateY(calc(var(--radius) * 1px)) rotate(-360deg)",
+          },
+        },
+        meteor: {
+          "0%": { transform: "rotate(215deg) translateX(0)", opacity: 1 },
+          "70%": { opacity: 1 },
+          "100%": {
+            transform: "rotate(215deg) translateX(-500px)",
+            opacity: 0,
           },
         },
       },
