@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom"
 import Navbar from "./Navbar"
 import axios from "axios";
 import { useEffect, useState } from "react";
-import ReactHtmlParser from "react-html-parser"
 import Loader from "./Loader";
 import CoinGraph from "./CoinGraph";
 interface CoinData {
@@ -38,7 +37,7 @@ const SingleCoin = () => {
                         <div className="w-[40%] flex items-center flex-col text-white">
                             <img src={CoinData.image.large} className="h-[160px]"/>
                             <p className=" font-extrabold text-xl">{CoinData.id}</p>
-                            <p className=" font-semibold text-lg">{ReactHtmlParser(CoinData.description.en?.split(". ")[0])}.</p>
+                            <p className=" font-semibold text-lg">{CoinData.description.en?.split(". ")[0]}.</p>
                             {/* <h2>Rank:{CoinData.market_cap_rank}</h2>
                             <h2>Price:{CoinData.market_data.current_price.inr}</h2> */}
                             <h2>Total Supply:</h2>
