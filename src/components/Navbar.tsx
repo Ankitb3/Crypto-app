@@ -9,6 +9,7 @@ import {
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import ShinyButton from "./magicui/shiny-button";
 import {CurrencyConverter} from "./CurrencyConverter";
+import MyModal from "./Modal";
 
 // const navigation = [
 //   { name: "Dashboard", href: "#", current: true },
@@ -64,9 +65,9 @@ const Navbar = () => {
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
    <CurrencyConverter/>
+   <MyModal/>
             {/* Profile dropdown */}
-            <ShinyButton text="Login"/>
-            <ShinyButton text="Signup"/>
+           
             {/* <Menu as="div" className="relative ml-3">
               <div>
                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
