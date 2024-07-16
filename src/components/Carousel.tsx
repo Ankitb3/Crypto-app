@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
 import { Link } from "react-router-dom";
 import { TrendingCoins } from "../config/api";
 import axios from "axios";
 import { SparkAreaChart } from "@tremor/react";
+import { CoinsContext } from "../Context/CoinsContext/CoinContext";
 interface Coin {
     id:string;
     name: string;
     market_cap_rank: number;
     image: string;
     current_price: string;
-    price_change_percentage_24h: string;
+    price_change_percentage_24h: number;
 }
 const Carousel = () => {
     const [data,setData] = useState<Coin[]>([]);
-    console.log(data,"data");
+    const {  currencyState } =useContext(CoinsContext);
     
     const chartdata = [
         {
@@ -42,7 +43,7 @@ const Carousel = () => {
             </div></div>
             <img src={coin.image}  className="h-[100px]"/>
             <p>{coin.name}</p>
-            <p>{coin.current_price}₹</p>
+            <p> {currencyState.currency == "inr" ?"₹" :"$"}{coin.current_price}</p>
             <SparkAreaChart
         data={chartdata}
         categories={['Performance']}
@@ -50,9 +51,8 @@ const Carousel = () => {
         colors={['green']}
         className="h-8 w-20 sm:h-10 sm:w-36"
       />
-            <span className="rounded bg-emerald-500 px-2 py-1 text-tremor-default font-medium text-white">
-          +{coin.price_change_percentage_24h}%
-        </span>
+                         <span className={`p-2 rounded-md text-white font-semibold text-lg ${coin.price_change_percentage_24h > 0 ?"bg-green-500" :"bg-red-600"}`}>{`${coin.price_change_percentage_24h > 0 ? "+":""}${coin.price_change_percentage_24h}`}%</span>
+
            
             <div className="flex items-center space-x-2.5">
             </div>
@@ -70,10 +70,10 @@ const Carousel = () => {
         512: { items: 4 }
     };
     useEffect(()=>{
-        axios.get(TrendingCoins("inr")).then((res)=>{
+        axios.get(TrendingCoins(currencyState.currency)).then((res)=>{
             setData(res.data);
         })
-    },[])
+    },[currencyState])
 
     return (
         <div >
