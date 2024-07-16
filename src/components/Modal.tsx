@@ -1,68 +1,101 @@
-// Modal.tsx
+import {  Dialog, DialogPanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
+import { useState } from 'react'
+import LoginForm from './LoginForm'
+import SignupForm from './SignupForm'
+import ShinyButton from './magicui/shiny-button'
 
-import React, { useState, useEffect } from 'react';
+export default function MyModal() {
+  const [isOpen, setIsOpen] = useState(false)
 
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+  function open() {
+    setIsOpen(true)
+  }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
-  const [isVisible, setIsVisible] = useState(isOpen);
-
-  useEffect(() => {
-    if (isOpen) {
-      setIsVisible(true);
-      document.addEventListener('keydown', handleEscapeKey);
-    } else {
-      document.removeEventListener('keydown', handleEscapeKey);
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscapeKey);
-    };
-  }, [isOpen]);
-
-  const handleEscapeKey = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      onClose();
-    }
-  };
-
-  const closeModal = () => {
-    setIsVisible(false);
-    onClose();
-  };
-
+  function close() {
+    setIsOpen(false)
+  }
+  const categories = [
+    {
+      name: 'Login',
+      posts: [
+        {
+          id: 1,
+          title: 'Does drinking coffee make you smarter?',
+          date: '5h ago',
+          commentCount: 5,
+          shareCount: 2,
+        },
+        {
+          id: 2,
+          title: "So you've bought coffee... now what?",
+          date: '2h ago',
+          commentCount: 3,
+          shareCount: 2,
+        },
+      ],
+    },
+    {
+      name: 'Signup',
+      posts: [
+        {
+          id: 1,
+          title: 'Is tech making coffee better or worse?',
+          date: 'Jan 7',
+          commentCount: 29,
+          shareCount: 16,
+        },
+        {
+          id: 2,
+          title: 'The most innovative things happening in coffee',
+          date: 'Mar 19',
+          commentCount: 24,
+          shareCount: 12,
+        },
+      ],
+    },
+   
+  ]
   return (
     <>
-      {isVisible && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-          <div className="bg-white rounded-lg overflow-hidden shadow-xl max-w-md w-full">
-            <div className="flex justify-end px-4 pt-2">
-              <button
-                className="text-gray-500 hover:text-gray-600 focus:outline-none"
-                onClick={closeModal}
+     
+      <ShinyButton text="Login" setIsOpen={setIsOpen} open={open}/>
+
+      <Dialog open={isOpen} as="div" className="relative z-10 focus:outline-none" onClose={close} __demoMode>
+        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4">
+            <DialogPanel
+              transition
+              className="w-full max-w-md rounded-xl bg-white/5 p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
+            >
+               <div className="flex h-min-[80vh] w-full justify-center pt-3 px-4">
+      <div className="w-full max-w-md">
+        <TabGroup>
+          <TabList className="flex gap-4">
+            {categories.map(({ name }) => (
+              <Tab
+                key={name}
+                className="rounded-full py-1 px-3 text-sm/6 font-semibold text-white focus:outline-none data-[selected]:bg-white/10 data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white"
               >
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-              </button>
-            </div>
-            <div className="p-4">hello</div>
+                {name}
+              </Tab>
+            ))}
+          </TabList>
+          <TabPanels className="mt-3">
+            {categories.map(({ name }) => (
+              <TabPanel key={name} className="rounded-xl bg-white/5 p-3">
+                {name === "Login" && <LoginForm/>}
+                {name === "Signup" && <SignupForm/>}
+
+              </TabPanel>
+            ))}
+          </TabPanels>
+        </TabGroup>
+      </div>
+    </div>
+            </DialogPanel>
           </div>
         </div>
-      )}
+      </Dialog>
     </>
-  );
-};
-
-export default Modal;
+  )
+}

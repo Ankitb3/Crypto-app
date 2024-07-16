@@ -1,7 +1,8 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CoinList } from "../config/api";
 import { useNavigate } from "react-router-dom";
+import { CoinsContext } from "../Context/CoinsContext/CoinContext";
 interface Coin {
     name: string;
     id:string;
@@ -14,7 +15,7 @@ interface Coin {
 }
 const CoinsTable = () => {
   const[coinsData,setCoinData] = useState<Coin[]>([]);
-  console.log(coinsData);
+  const {  currencyState } =useContext(CoinsContext);
   const navigate = useNavigate();
   
  useEffect(()=>{
@@ -57,7 +58,7 @@ const CoinsTable = () => {
                 </div>
              
               </td>
-              <td className="py-3 px-6 text-left">₹{coin.current_price}</td>
+              <td className="py-3 px-6 text-left"> {currencyState.currency == "inr" ?"₹" :"$"}{coin.current_price}</td>
               <td className={`py-3 px-6 text-left font-semibold text-lg ${coin.price_change_percentage_24h > 0 ?"text-green-500" :"text-red-600"}`}>{`${coin.price_change_percentage_24h > 0 ? "+":""}${coin.price_change_percentage_24h}`}%</td>
               <td className="py-3 px-6 text-left">{coin.market_cap}</td>
             </tr>

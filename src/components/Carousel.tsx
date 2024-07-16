@@ -52,8 +52,6 @@ const Carousel = () => {
         className="h-8 w-20 sm:h-10 sm:w-36"
       />
                          <span className={`p-2 rounded-md text-white font-semibold text-lg ${coin.price_change_percentage_24h > 0 ?"bg-green-500" :"bg-red-600"}`}>{`${coin.price_change_percentage_24h > 0 ? "+":""}${coin.price_change_percentage_24h}`}%</span>
-
-           
             <div className="flex items-center space-x-2.5">
             </div>
             <div>

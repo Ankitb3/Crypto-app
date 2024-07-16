@@ -13,7 +13,7 @@ export function CurrencyConverter() {
     };
 
   return (
-    <Select name="status" aria-label="Project status" className="cursor-pointer p-1 ml-4" value={currencyState.currency}  // Set the value based on currencyState
+    <Select name="status" aria-label="Project status" className="cursor-pointer p-1 ml-4 rounded-md" value={currencyState.currency}  // Set the value based on currencyState
     onChange={handleCurrencyChange}>
       <option value="usd">USD</option>
       <option value="inr">INR</option>

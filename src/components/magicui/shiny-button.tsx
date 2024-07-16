@@ -22,10 +22,19 @@ const animationProps = {
     },
   },
 } as AnimationProps;
-
-const ShinyButton = ({ text = "shiny-button" }) => {
+interface Props{
+  open:unknown;
+  text:string;
+  setIsOpen:unknown
+}
+const ShinyButton = ({ text = "shiny-button",setIsOpen }:Props) => {
+ 
+  const handleModal=()=>{
+    setIsOpen(true)
+  }
   return (
     <motion.button
+    onClick={handleModal}
       {...animationProps}
       className="relative rounded-lg px-6 py-2 font-medium m-2  backdrop-blur-xl transition-[box-shadow] duration-300 ease-in-out hover:shadow dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--primary)/10%)_0%,transparent_60%)] dark:hover:shadow-[0_0_20px_hsl(var(--primary)/10%)] border"
     >
