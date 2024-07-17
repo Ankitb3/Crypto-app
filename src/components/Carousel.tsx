@@ -15,7 +15,7 @@ interface Coin {
 }
 const Carousel = () => {
     const [data,setData] = useState<Coin[]>([]);
-    const {  currencyState } =useContext(CoinsContext);
+    const {  coinState } =useContext(CoinsContext);
     
     const chartdata = [
         {
@@ -43,7 +43,7 @@ const Carousel = () => {
             </div></div>
             <img src={coin.image}  className="h-[100px]"/>
             <p>{coin.name}</p>
-            <p> {currencyState.currency == "inr" ?"₹" :"$"}{coin.current_price}</p>
+            <p> {coinState?.currencyState?.currency == "inr" ?"₹" :"$"}{coin.current_price}</p>
             <SparkAreaChart
         data={chartdata}
         categories={['Performance']}
@@ -68,13 +68,14 @@ const Carousel = () => {
         512: { items: 4 }
     };
     useEffect(()=>{
-        axios.get(TrendingCoins(currencyState.currency)).then((res)=>{
+        axios.get(TrendingCoins(coinState.currencyState?.currency)).then((res)=>{
             setData(res.data);
         })
-    },[currencyState])
+    },[coinState])
 
     return (
-        <div >
+        <div  className=" ">
+            <div className="lg:mt-20">
             <p className="text-center text-white text-4xl font-semibold">Trending Coins</p>
             <div>
             <AliceCarousel
@@ -89,7 +90,8 @@ const Carousel = () => {
                 disableButtonsControls
             />
             </div>
-           
+            </div>
+            
         </div>
     );
 };

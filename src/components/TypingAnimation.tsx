@@ -7,7 +7,7 @@ const TextReveal=({text}:Props)=> {
     <TypingAnimation
       className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center text-6xl font-semibold leading-none text-transparent dark:from-white dark:to-black"
       text={text}
-      duration={500}
+      duration={200}
 
     />
   );

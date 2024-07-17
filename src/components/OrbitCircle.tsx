@@ -3,16 +3,16 @@ import TextReveal from "./TypingAnimation";
 
 const OrbitCircle=()=> {
   return (
-    <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background md:shadow-xl">
+    <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background md:shadow-xl">
       <span>
-        <TextReveal text="Crypto World"/>
+        <TextReveal text="Trust and Security in Web3 Crypto Exchange"/>
       </span>
 
       <OrbitingCircles
         className="size-[30px] border-none bg-transparent"
         duration={20}
         delay={20}
-        radius={80}
+        radius={300}
       >
         <Icons.bitcoin />
       </OrbitingCircles>
@@ -20,7 +20,7 @@ const OrbitCircle=()=> {
         className="size-[30px] border-none bg-transparent"
         duration={20}
         delay={10}
-        radius={80}
+        radius={280}
       >
         <Icons.ethereum />
       </OrbitingCircles>
@@ -28,20 +28,20 @@ const OrbitCircle=()=> {
       <OrbitingCircles
         className="size-[50px] border-none bg-transparent"
         radius={140}
-        duration={30}
+        duration={260}
       >
         <Icons.xrp />
       </OrbitingCircles>
       <OrbitingCircles
         className="size-[50px] border-none bg-transparent"
-        radius={210}
-        duration={20}
+        radius={270}
+        duration={120}
       >
         <Icons.ton />
       </OrbitingCircles>  <OrbitingCircles
         className="size-[50px] border-none bg-transparent"
         radius={100}
-        duration={20}
+        duration={120}
         reverse
       >
         <Icons.sol />
@@ -57,14 +57,14 @@ const OrbitCircle=()=> {
       </OrbitingCircles>
       <OrbitingCircles
         className="size-[50px] border-none bg-transparent"
-        radius={20}
+        radius={300}
         duration={10}
         delay={10}
       >
         <Icons.card />
       </OrbitingCircles>  <OrbitingCircles
         className="size-[50px] border-none bg-transparent"
-        radius={140}
+        radius={290}
         duration={20}
         delay={5}
         reverse
@@ -80,7 +80,7 @@ const OrbitCircle=()=> {
       </OrbitingCircles>
       <OrbitingCircles
         className="size-[50px] border-none bg-transparent"
-        radius={190}
+        radius={300}
         duration={20}
         delay={10}
       >
@@ -88,7 +88,7 @@ const OrbitCircle=()=> {
       </OrbitingCircles>
       <OrbitingCircles
         className="size-[50px] border-none bg-transparent"
-        radius={190}
+        radius={270}
         duration={20}
         delay={10}
         reverse

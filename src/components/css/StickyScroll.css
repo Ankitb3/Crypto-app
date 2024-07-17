@@ -1,0 +1,32 @@
+/* Hide default scrollbar */
+/* WebKit (Chrome, Safari, etc.) */
+::-webkit-scrollbar {
+    width: 1px; /* Set width of the scrollbar */
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: #da2929; /* Color of the scrollbar handle */
+    border-radius: 1px; /* Rounded corners of the handle */
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #790606; /* Color of the scrollbar track */
+  }
+  
+  /* Firefox */
+  * {
+    scrollbar-width: thin; /* Set width of the scrollbar */
+    scrollbar-color: #888 #f1f1f1; /* Color of the scrollbar handle and track */
+  }
+  
+  /* Optionally hide scrollbar on hover for Firefox */
+  * {
+    scrollbar-width: thin;
+  }
+  
+  *::-webkit-scrollbar {
+    width: 0;
+  }
+  

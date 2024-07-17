@@ -1,17 +1,66 @@
 import { useState } from 'react';
 import { Input, Button } from '@headlessui/react';
-
-const SignupForm = () => {
+import confetti from "canvas-confetti";
+import {toast} from "react-toastify"
+const SignupForm = ({setIsOpen}) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleSignup = () => {
-        console.log('Username:', username);
-        console.log('Email:', email);
-        console.log('Password:', password);
-        console.log('Confirm Password:', confirmPassword);
+
+        const signupData = {
+         username,email,password,confirmPassword
+        };
+        if(username && email && password && confirmPassword === ""){
+            alert("all feild are required")
+        }else if(password !== confirmPassword){
+              alert('cp must name ')
+        }else{
+            setIsOpen(false);
+            const end = Date.now() + 1 * 1000; 
+            const colors = ["#a786ff", "#fd8bbc", "#eca184", "#f8deb1"];
+         
+            const frame = () => {
+              if (Date.now() > end) return;
+         
+              confetti({
+                particleCount: 2,
+                angle: 60,
+                spread: 55,
+                startVelocity: 60,
+                origin: { x: 0, y: 0.5 },
+                colors: colors,
+              });
+              confetti({
+                particleCount: 2,
+                angle: 120,
+                spread: 55,
+                startVelocity: 60,
+                origin: { x: 1, y: 0.5 },
+                colors: colors,
+              });
+         
+              requestAnimationFrame(frame);
+            };
+            frame();
+            localStorage.setItem("signup",JSON.stringify(signupData));
+            const name = localStorage.getItem('signup');
+             let d=JSON.parse(name)
+             toast(`Welcome ${d?.username} to Crypto World`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
+            
+        }
+        
     };
 
     return (
@@ -59,6 +108,7 @@ const SignupForm = () => {
                         >
                             Sign up
                         </Button>
+
                     </div>
                 </form>
             </div>

@@ -84,7 +84,7 @@ export default function MyModal() {
             {categories.map(({ name }) => (
               <TabPanel key={name} className="rounded-xl bg-white/5 p-3">
                 {name === "Login" && <LoginForm/>}
-                {name === "Signup" && <SignupForm/>}
+                {name === "Signup" && <SignupForm  setIsOpen={setIsOpen}/>}
 
               </TabPanel>
             ))}

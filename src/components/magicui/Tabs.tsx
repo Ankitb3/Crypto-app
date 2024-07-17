@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
+import { AnimatedInput } from "../VanishInput";
 
 type Tab = {
   title: string;
@@ -79,7 +80,7 @@ export const Tabs = ({
         active={active}
         key={active.value}
         hovering={hovering}
-        className={cn("mt-20", contentClassName)}
+        className={cn(`${hovering ? "mt-20" : "mt-40"}`, contentClassName)}
       />
     </>
   );
@@ -101,6 +102,9 @@ export const FadeInDiv = ({
   };
   return (
     <div className="relative w-full h-full">
+      <div className={`${hovering && "hidden"} mt-6`}>
+      <AnimatedInput/>
+      </div>
       {tabs.map((tab, idx) => (
         <motion.div
           key={tab.value}

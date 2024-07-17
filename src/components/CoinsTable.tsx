@@ -3,33 +3,28 @@ import { useContext, useEffect, useState } from "react";
 import { CoinList } from "../config/api";
 import { useNavigate } from "react-router-dom";
 import { CoinsContext } from "../Context/CoinsContext/CoinContext";
-interface Coin {
-    name: string;
-    id:string;
-    market_cap_rank: number;
-    image: string;
-    current_price: string;
-    price_change_percentage_24h: number;
-    symbol:string;
-    market_cap:string;
-}
+
 const CoinsTable = () => {
-  const[coinsData,setCoinData] = useState<Coin[]>([]);
-  const {  currencyState } =useContext(CoinsContext);
+  const { coinState, setCoinState } =useContext(CoinsContext);
   const navigate = useNavigate();
   
  useEffect(()=>{
-    axios.get(CoinList('inr')).then(res=>setCoinData(res.data))
- },[])
+    axios.get(CoinList(coinState?.currencyState?.currency)).then(res=>  setCoinState(prev=>({
+      ...prev,
+      coinsData:res.data
+    }))).catch((err)=>{
+      console.log(err);
+    })
+ },[coinState])
 
   const itemsPerPage = 10; 
   const [currentPage, setCurrentPage] = useState(1);
 
   const lastIndex = currentPage * itemsPerPage;
   const firstIndex = lastIndex - itemsPerPage;
-  const currentItems = coinsData.slice(firstIndex, lastIndex);
+  const currentItems = coinState.coinsData?.slice(firstIndex, lastIndex);
 
-  const totalPages = Math.ceil(coinsData.length / itemsPerPage);
+  const totalPages = Math.ceil(coinState.coinsData?.length / itemsPerPage);
 
   const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
 
@@ -45,7 +40,7 @@ const CoinsTable = () => {
           </tr>
         </thead>
         <tbody className="text-white text-sm font-light">
-          {currentItems.map((coin) => (
+          {currentItems?.map((coin) => (
             <tr key={coin.name} className="border-b border-[#7570cc] hover:bg-gray-900 cursor-pointer " onClick={()=>navigate(`/coin/${coin.id}`)}>
               <td className="py-3 px-6 text-left whitespace-nowrap">
                 <div className="flex items-center gap-2 text-xl ">
@@ -58,7 +53,7 @@ const CoinsTable = () => {
                 </div>
              
               </td>
-              <td className="py-3 px-6 text-left"> {currencyState.currency == "inr" ?"₹" :"$"}{coin.current_price}</td>
+              <td className="py-3 px-6 text-left"> {coinState.currencyState?.currency == "inr" ?"₹" :"$"}{coin.current_price}</td>
               <td className={`py-3 px-6 text-left font-semibold text-lg ${coin.price_change_percentage_24h > 0 ?"text-green-500" :"text-red-600"}`}>{`${coin.price_change_percentage_24h > 0 ? "+":""}${coin.price_change_percentage_24h}`}%</td>
               <td className="py-3 px-6 text-left">{coin.market_cap}</td>
             </tr>
