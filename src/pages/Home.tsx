@@ -5,11 +5,13 @@ import OrbitCircle from "../components/OrbitCircle"
 import { ScrollBasedAnimation } from "../components/ScrollBasedVelocity"
 import { AboutCrypto } from "../components/AboutCrypto"
 import { TabsDemo } from "../components/Tab"
+import FAQ from "../components/Faq"
+import { MarqueeDemo } from "../components/Reviews"
 
 const Home = () => {
 
   return (
-    <div >
+    <div>
       <Navbar />
       <OrbitCircle />
       <Carousel />
@@ -18,6 +20,8 @@ const Home = () => {
         <ScrollBasedAnimation text="Discover the Power of Cryptocurrency" />
       </div>
       <AboutCrypto />
+      <MarqueeDemo/>
+<FAQ/>
       {/* <CoinsTable/> */}
     </div>
   )

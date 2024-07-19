@@ -1,8 +1,9 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { cn } from "../../lib/utils";
+import { CoinsContext } from "../../Context/CoinsContext/CoinContext";
 
 export function PlaceholdersAndVanishInput({
   placeholders,
@@ -23,10 +24,10 @@ export function PlaceholdersAndVanishInput({
   };
   const handleVisibilityChange = () => {
     if (document.visibilityState !== "visible" && intervalRef.current) {
-      clearInterval(intervalRef.current); // Clear the interval when the tab is not visible
+      clearInterval(intervalRef.current);
       intervalRef.current = null;
     } else if (document.visibilityState === "visible") {
-      startAnimation(); // Restart the interval when the tab becomes visible
+      startAnimation();
     }
   };
 
@@ -45,7 +46,8 @@ export function PlaceholdersAndVanishInput({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const newDataRef = useRef<any[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [value, setValue] = useState("");
+  const { coinState ,setCoinState} =useContext(CoinsContext);
+
   const [animating, setAnimating] = useState(false);
 
   const draw = useCallback(() => {
@@ -63,7 +65,7 @@ export function PlaceholdersAndVanishInput({
     const fontSize = parseFloat(computedStyles.getPropertyValue("font-size"));
     ctx.font = `${fontSize * 2}px ${computedStyles.fontFamily}`;
     ctx.fillStyle = "#FFF";
-    ctx.fillText(value, 16, 40);
+    ctx.fillText(coinState.searchCoinText, 16, 40);
 
     const imageData = ctx.getImageData(0, 0, 800, 800);
     const pixelData = imageData.data;
@@ -98,11 +100,11 @@ export function PlaceholdersAndVanishInput({
       r: 1,
       color: `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3]})`,
     }));
-  }, [value]);
+  }, [coinState.searchCoinText]);
 
   useEffect(() => {
     draw();
-  }, [value, draw]);
+  }, [coinState.searchCoinText, draw]);
 
   const animate = (start: number) => {
     const animateFrame = (pos: number = 0) => {
@@ -141,7 +143,7 @@ export function PlaceholdersAndVanishInput({
         if (newDataRef.current.length > 0) {
           animateFrame(pos - 8);
         } else {
-          setValue("");
+          setCoinState(prev=>({...prev,searchCoinText:"",filteredCoin:[],coinFound:false}))
           setAnimating(false);
         }
       });
@@ -178,7 +180,7 @@ export function PlaceholdersAndVanishInput({
     <form
       className={cn(
         "w-full relative max-w-xl mx-auto bg-white dark:bg-zinc-800 h-12 rounded-full overflow-hidden shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),_0px_1px_0px_0px_rgba(25,28,33,0.02),_0px_0px_0px_1px_rgba(25,28,33,0.08)] transition duration-200",
-        value && "bg-gray-50"
+        coinState.searchCoinText && "bg-gray-50"
       )}
       onSubmit={handleSubmit}
     >
@@ -192,13 +194,13 @@ export function PlaceholdersAndVanishInput({
       <input
         onChange={(e) => {
           if (!animating) {
-            setValue(e.target.value);
+            setCoinState(prev=>({...prev,searchCoinText:e.target.value}))
             onChange && onChange(e);
           }
         }}
         onKeyDown={handleKeyDown}
         ref={inputRef}
-        value={value}
+        value={coinState.searchCoinText}
         type="text"
         className={cn(
           "w-full relative text-sm sm:text-base z-50 border-none dark:text-white bg-transparent text-black h-full rounded-full focus:outline-none focus:ring-0 pl-4 sm:pl-10 pr-20",
@@ -207,11 +209,12 @@ export function PlaceholdersAndVanishInput({
       />
 
       <button
-        disabled={!value}
+        disabled={!coinState.searchCoinText}
         type="submit"
         className="absolute right-2 top-1/2 z-50 -translate-y-1/2 h-8 w-8 rounded-full disabled:bg-gray-100 bg-black dark:bg-zinc-900 dark:disabled:bg-zinc-800 transition duration-200 flex items-center justify-center"
       >
-        <motion.svg
+        <h2 className={`${coinState.searchCoinText ? "block" : 'hidden'} text-white`}>❌</h2>
+        {/* <motion.svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -240,12 +243,12 @@ export function PlaceholdersAndVanishInput({
           />
           <path d="M13 18l6 -6" />
           <path d="M13 6l6 6" />
-        </motion.svg>
+        </motion.svg> */}
       </button>
 
       <div className="absolute inset-0 flex items-center rounded-full pointer-events-none">
         <AnimatePresence mode="wait">
-          {!value && (
+          {!coinState.searchCoinText && (
             <motion.p
               initial={{
                 y: 5,

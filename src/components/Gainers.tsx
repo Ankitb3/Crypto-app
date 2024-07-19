@@ -1,35 +1,23 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { CoinList } from "../config/api";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CoinsContext } from "../Context/CoinsContext/CoinContext";
 
-const CoinsTable = () => {
-  const { coinState, setCoinState } =useContext(CoinsContext);
+const Gainers = () => {
+  const { coinState } =useContext(CoinsContext);
   const navigate = useNavigate();
-  
- useEffect(()=>{
-    axios.get(CoinList(coinState?.currencyState?.currency)).then(res=>  setCoinState(prev=>({
-      ...prev,
-      coinsData:res.data
-    }))).catch((err)=>{
-      console.log(err);
-    })
- },[])
-
-  const itemsPerPage = 10; 
+  const itemsPerPage = 12; 
   const [currentPage, setCurrentPage] = useState(1);
 
   const lastIndex = currentPage * itemsPerPage;
   const firstIndex = lastIndex - itemsPerPage;
-  const currentItems =coinState.filteredCoin.length > 0 ?coinState.filteredCoin : coinState.coinsData?.slice(firstIndex, lastIndex);
+  const currentItems =coinState.filteredCoin.length > 0 ?coinState.filteredCoin : coinState.coinsData?.filter(coin=> coin.price_change_percentage_24h > 0 && coin).slice(firstIndex,lastIndex)
   const totalPages = Math.ceil(coinState.coinsData?.length / itemsPerPage);
   const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
-
+  
   return (
     <>
     {
-      coinState.coinFound ?        <p  className="mt-20 pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center ;g:text-6xl text-4xl font-semibold leading-none text-transparent dark:from-white dark:to-black"
+      coinState.coinFound ?  <p className="mt-20 pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center ;g:text-6xl text-4xl font-semibold leading-none text-transparent dark:from-white dark:to-black"
 >Coin Not Found</p>
       : <div className="overflow-x-auto">
     
@@ -43,9 +31,11 @@ const CoinsTable = () => {
           </tr>
         </thead>
         <tbody className="text-white text-sm font-light">
+        
           { currentItems?.map((coin) => (
+            
             <tr key={coin.name} className="border-b border-[#7570cc] hover:bg-gray-900 cursor-pointer " onClick={()=>navigate(`/coin/${coin.id}`)}>
-              <td className="py-3 px-6 text-left whitespace-nowrap">
+              {coin.price_change_percentage_24h >0 && <> <td className="py-3 px-6 text-left whitespace-nowrap">
                 <div className="flex items-center gap-2 text-xl ">
                 <img src={coin.image}  className="h-[70px]"/>
                 <div>
@@ -58,15 +48,17 @@ const CoinsTable = () => {
               </td>
               <td className="py-3 px-6 text-left"> {coinState.currencyState?.currency == "inr" ?"₹" :"$"}{coin.current_price}</td>
               <td className={`py-3 px-6 text-left font-semibold text-lg ${coin.price_change_percentage_24h > 0 ?"text-green-500" :"text-red-600"}`}>{`${coin.price_change_percentage_24h > 0 ? "+":""}${coin.price_change_percentage_24h}`}%</td>
-              <td className="py-3 px-6 text-left">{coin.market_cap}</td>
+              <td className="py-3 px-6 text-left">{coin.market_cap}</td></>}
+             
             </tr>
           ))}
         </tbody>
       </table>
       {/* Pagination */}
+     
       {
-        coinState.filteredCoin.length >0 ? "" : <div className="flex justify-center mb-3 mt-4">
-       
+        coinState.filteredCoin.length >0 ? "" :<div className={`${currentItems.length > 0 && "hidden"}`}>
+             <div className="flex justify-center mb-3 mt-4">
         <div>
           <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
             <button
@@ -95,6 +87,7 @@ const CoinsTable = () => {
           </nav>
         </div>
       </div>   
+        </div>
       }
      
     </div>
@@ -104,4 +97,4 @@ const CoinsTable = () => {
   );
 };
 
-export default CoinsTable;
+export default Gainers;

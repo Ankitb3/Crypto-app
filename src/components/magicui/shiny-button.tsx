@@ -1,4 +1,3 @@
-"use client";
 
 import { motion, type AnimationProps } from "framer-motion";
 
@@ -25,7 +24,7 @@ const animationProps = {
 interface Props{
   open:unknown;
   text:string;
-  setIsOpen:unknown
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const ShinyButton = ({ text = "shiny-button",setIsOpen }:Props) => {
  

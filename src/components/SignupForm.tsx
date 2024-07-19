@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { Input, Button } from '@headlessui/react';
 import confetti from "canvas-confetti";
 import {toast} from "react-toastify"
-const SignupForm = ({setIsOpen}) => {
+interface SignupFormProps {
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    // Add other props if needed
+  }
+const SignupForm:React.FC<SignupFormProps> = ({setIsOpen}) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -46,8 +50,9 @@ const SignupForm = ({setIsOpen}) => {
             };
             frame();
             localStorage.setItem("signup",JSON.stringify(signupData));
-            const name = localStorage.getItem('signup');
-             let d=JSON.parse(name)
+            const name = localStorage.getItem('signup'); 
+const d = name ? JSON.parse(name) : null;    
+
              toast(`Welcome ${d?.username} to Crypto World`, {
                 position: "top-center",
                 autoClose: 5000,

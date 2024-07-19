@@ -71,7 +71,7 @@ const Carousel = () => {
         axios.get(TrendingCoins(coinState.currencyState?.currency)).then((res)=>{
             setData(res.data);
         })
-    },[coinState])
+    },[coinState.currencyState])
 
     return (
         <div  className=" ">

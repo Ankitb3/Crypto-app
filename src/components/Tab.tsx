@@ -4,6 +4,7 @@ import { Tabs } from "../components/magicui/Tabs"
 import CoinsTable from "./CoinsTable";
 import { LampDemo } from "./CommingSoonPage";
 import Favorite from "./Favorite";
+import Gainers from "./Gainers";
 
 export function TabsDemo() {
   const tabs = [
@@ -21,9 +22,9 @@ export function TabsDemo() {
       title: "Gainers",
       value: "Gainers",
       content: (
-        <div className="w-full shadow-md shadow-white overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-purple-700 to-violet-900">
+        <div className="border-2 shadow-md shadow-white bg-black relative overflow-auto h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-b">
           <p>Top Gainers</p>
-          <DummyContent />
+          <Gainers />
         </div>
       ),
     },
@@ -55,14 +56,4 @@ export function TabsDemo() {
   );
 }
 
-const DummyContent = () => {
-  return (
-    <img
-      src="https://ui.aceternity.com/_next/image?url=%2Flinear.webp&w=1080&q=75"
-      alt="dummy image"
-      width="1000"
-      height="1000"
-      className="object-cover object-left-top h-[60%]  md:h-[90%] absolute -bottom-10 inset-x-0 w-[90%] rounded-xl mx-auto"
-    />
-  );
-};
+

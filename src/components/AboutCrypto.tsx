@@ -9,7 +9,7 @@ export function AboutCrypto() {
         <TracingBeam className="px-6">
       <div className="max-w-2xl mx-auto antialiased pt-4 relative">
         {dummyContent.map((item, index) => (
-          <div key={`content-${index}`} className="mb-10">
+          <div key={`content-${index}`} className="mb-10 ms-4">
             {/* <h2 className="bg-black text-white rounded-full text-sm w-fit px-4 py-1 mb-4">
               {item.badge}
             </h2> */}
@@ -20,7 +20,7 @@ export function AboutCrypto() {
 
             <div className=" text-white prose prose-sm dark:prose-invert">
               {item?.image && (
-              <img src={item.image} className="h-[250px] rounded-lg"/>
+              <img src={item.image} className="lg:h-[250px] h-[150px] rounded-lg"/>
               )}
               {item.description}
             </div>

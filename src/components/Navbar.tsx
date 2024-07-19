@@ -7,9 +7,9 @@ import {
   // MenuItems,
 } from  "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import ShinyButton from "./magicui/shiny-button";
 import {CurrencyConverter} from "./CurrencyConverter";
 import MyModal from "./Modal";
+import { Link } from "react-router-dom";
 
 // const navigation = [
 //   { name: "Dashboard", href: "#", current: true },
@@ -41,7 +41,9 @@ const Navbar = () => {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
-             <h2 className="text-white font-semibold text-2xl">Crypto World</h2>
+              <Link to="/">
+              <h2 className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center text-4xl font-semibold leading-none text-transparent dark:from-white dark:to-black">Crypto World</h2>
+              </Link>
             </div>
             {/* <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">

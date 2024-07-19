@@ -25,15 +25,16 @@ const SingleCoin = () => {
             setCoinData(res.data)
         }).finally(()=> setLoading(false)
     )
-     },[id])
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+     },[])
      return (
         <div>
             <Navbar/>
             {loading ? (
                 <Loader />
             ) : (
-                CoinData && ( // Check if CoinData is defined
-                    <div className="flex flex-wrap justify-between">
+                CoinData && ( 
+                    <div className="flex  bg-red-900">
                         <div className="w-[40%] flex items-center flex-col text-white">
                             <img src={CoinData.image.large} className="h-[160px]"/>
                             <p className=" font-extrabold text-xl">{CoinData.id}</p>
@@ -43,7 +44,7 @@ const SingleCoin = () => {
                             <h2>Total Supply:</h2>
                             <h2>Contract Address:</h2>
                         </div>
-                        <div><CoinGraph coin={CoinData}/></div>
+                        <div className="bg-white w-[60%]"><CoinGraph coin={CoinData}/></div>
                     </div>
                 )
             )}
