@@ -1,7 +1,8 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CoinList } from "../config/api";
 import { useNavigate } from "react-router-dom";
+import { CoinsContext } from "../Context/CoinsContext/CoinContext";
 interface Coin {
     name: string;
     id:string;
@@ -14,6 +15,8 @@ interface Coin {
 }
 const Favorite = () => {
   const[coinsData,setCoinData] = useState<Coin[]>([]);
+  const { coinState } = useContext(CoinsContext);
+
   console.log(coinsData);
   const navigate = useNavigate();
   
@@ -31,6 +34,7 @@ const Favorite = () => {
   const totalPages = Math.ceil(coinsData.length / itemsPerPage);
 
   const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
+console.log(coinState.favorite,"dfdf");
 
   return (
     <div className="overflow-x-auto">
@@ -44,7 +48,7 @@ const Favorite = () => {
           </tr>
         </thead>
         <tbody className="text-white text-sm font-light">
-          {currentItems.map((coin) => (
+          {coinState?.favorite?.map((coin) => (
             <tr key={coin.name} className="border-b border-[#7570cc] hover:bg-gray-900 cursor-pointer " onClick={()=>navigate(`/coin/${coin.id}`)}>
               <td className="py-3 px-6 text-left whitespace-nowrap">
                 <div className="flex items-center gap-2 text-xl ">

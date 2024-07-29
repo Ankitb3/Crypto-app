@@ -16,7 +16,7 @@ export function AddReview() {
             Add Your Review
           </span>
           <div className="-translate-x-40 group-hover/modal-btn:translate-x-0 flex items-center justify-center absolute inset-0 transition duration-500 text-white z-20">
-            ✈️
+            🧾🖊
           </div>
         </ModalTrigger>
         <ModalBody>
@@ -28,7 +28,7 @@ export function AddReview() {
               Cancel
             </button>
             <button className="bg-black text-white dark:bg-white dark:text-black text-sm px-2 py-1 rounded-md border border-black w-28">
-              Book Now
+              ADD
             </button>
           </ModalFooter>
         </ModalBody>

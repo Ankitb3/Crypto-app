@@ -102,7 +102,7 @@ export const FadeInDiv = ({
   };
   return (
     <div className="relative w-full h-full">
-      <div className={`${hovering && "hidden"} mt-6`}>
+      <div className={`${hovering && "hidden"}  mt-6`}>
       <AnimatedInput/>
       </div>
       {tabs.map((tab, idx) => (

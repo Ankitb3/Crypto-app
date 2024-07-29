@@ -5,7 +5,7 @@ const OrbitCircle=()=> {
   return (
     <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background md:shadow-xl">
       <span>
-        <TextReveal text="Trust and Security in Web3 Crypto Exchange"/>
+        <TextReveal text="Trust and Security in Web3 Crypto Exchange" className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center; lg:text-6xl text-4xl font-semibold leading-none text-transparent dark:from-white dark:to-black"/>
       </span>
 
       <OrbitingCircles

@@ -4,8 +4,7 @@ import TextReveal from "./TypingAnimation";
 export function AboutCrypto() {
   return (
     <div className="mt-40">
-        <TextReveal text="About CryptoCurrency"/>
-
+        <TextReveal text="About CryptoCurrency" className="text-white text-4xl"/>
         <TracingBeam className="px-6">
       <div className="max-w-2xl mx-auto antialiased pt-4 relative">
         {dummyContent.map((item, index) => (
@@ -14,7 +13,7 @@ export function AboutCrypto() {
               {item.badge}
             </h2> */}
 
-            <p className={ "text-white text-xl mb-4 underline"}>
+            <p className={ "text-white text-xl font-semibold mb-4 underline"}>
               {item.title}
             </p>
 

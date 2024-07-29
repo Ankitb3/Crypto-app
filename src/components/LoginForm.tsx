@@ -6,10 +6,8 @@ const LoginForm = () => {
     const [password, setPassword] = useState('');
 
     const handleLogin = () => {
-        // For demonstration purposes, log the username and password
         console.log('Username:', username);
         console.log('Password:', password);
-        // You can add logic for authentication here
     };
 
     return (
